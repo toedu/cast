@@ -1,0 +1,19 @@
+{
+    "name": "toedu/cast",
+    "description": "a streaming site",
+    "type": "project",
+    "authors": [
+        {
+            "name": "toedu",
+            "email": "yyysss099@gmail.com"
+        }
+    ],
+    "require": {
+        "noahbuscher/macaw": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Controllers\\" : "controllers/"
+        }
+    }
+}

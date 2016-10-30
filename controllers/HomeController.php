@@ -6,10 +6,29 @@
  * Time: 22:56
  */
 
-namespace controllers;
+namespace Controllers;
 
 
 class HomeController
 {
+    public function index()
+    {
 
+    }
+
+    public function register()
+    {
+
+    }
+
+    public function login()
+    {
+        echo 'login';
+
+    }
+
+    public function logout()
+    {
+
+    }
 }
