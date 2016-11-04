@@ -5,20 +5,13 @@
  * Date: 16/10/30
  * Time: 00:12
  */
-error_reporting (E_ALL);
+ini_set("display_errors", "On");
+error_reporting(E_ALL | E_STRICT);
+
+define('PUBLIC_PATH', __DIR__);
+
+define('VIEW_BASE_PATH', '../app/web/views/');
 
 require('../vendor/autoload.php');
 
-use NoahBuscher\Macaw\Macaw;
-
-Macaw::get('/', function() {
-    echo 'Hello world!';
-    include_once '../views/index.blade.php';
-});
-
-
-Macaw::get('/login',  'Controllers\HomeController@login');
-
-Macaw::dispatch();
-
-//include_once '../views/index.blade.php';
+require('../config/routes.php');
