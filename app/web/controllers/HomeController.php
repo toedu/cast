@@ -58,7 +58,7 @@ class HomeController
                 ];
                 $err = [];
                 $validator = new Validator($_POST, $rules);
-                if ( !$validator->success ) {
+                if (!$validator->success) {
                     $err = $validator->errors;
                 }
 
@@ -91,7 +91,6 @@ class HomeController
                 }
 
 
-
                 if ($err) {
                     $view = View::make('register');
                     $view->with('err', $err);
@@ -99,12 +98,15 @@ class HomeController
                 } else {
                     //注册新用户
                     $password = md5($password);
-                    $sql = "INSERT INTO users(name, email, password) VALUES ('$name', '$email', '$password')";
+                    $created_at = date('Y-m-d H:i:s');
+                    $updated_at = date('Y-m-d H:i:s');
+                    $sql = "INSERT INTO `users` (`name`, `email`, `password`, `created_at`, `updated_at`) 
+                                      VALUES ('$name', '$email', '$password', '$created_at', '$updated_at')";
                     $result = $this->db->query($sql);
-                    if($result){
+                    if ($result) {
                         echo $this->db->insert_id;
 
-                    }else{
+                    } else {
 
                     }
 
