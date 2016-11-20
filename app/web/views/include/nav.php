@@ -22,13 +22,13 @@
                     <a href="#">Game</a>
                 </li>
             </ul>
-            <?php if(true){ ?>
+            <?php if(empty($_SESSION['user'])){ ?>
             <a href="/register" class="pull-right btn-login">Sign up</a>
             <a href="/login" class="pull-right btn-login">Login</a>
             <?php }else{ ?>
             <a href="/cast" class="btn btn-success pull-right btn-live">go live</a>
             <a href="/logout" class="pull-right btn-login">Logout</a>
-            <div class="pull-right btn-login">{{Auth::user()->name}}</div>
+            <div class="pull-right btn-login"><?php echo $_SESSION['user']['name'] ?></div>
             <?php } ?>
 
         </div>

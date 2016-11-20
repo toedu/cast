@@ -5,6 +5,7 @@
  * Date: 16/10/30
  * Time: 00:12
  */
+
 ini_set("display_errors", "On");
 error_reporting(E_ALL | E_STRICT);
 

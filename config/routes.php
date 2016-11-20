@@ -9,12 +9,11 @@
 use NoahBuscher\Macaw\Macaw;
 
 Macaw::get('/',             'Web\Controllers\HomeController@index');
-
+Macaw::get('/list',         'Web\Controllers\HomeController@channelList');
 Macaw::get('/(:num)',       'Web\Controllers\HomeController@channel');
 
 Macaw::any('/register',     'Web\Controllers\HomeController@register');
-//Macaw::post('/register',    'Web\Controllers\HomeController@register');
-Macaw::get('/login',        'Web\Controllers\HomeController@login');
-Macaw::post('/login',       'Web\Controllers\HomeController@doLogin');
+Macaw::any('/login',        'Web\Controllers\HomeController@login');
+Macaw::get('/logout',       'Web\Controllers\HomeController@logout');
 
 Macaw::dispatch();

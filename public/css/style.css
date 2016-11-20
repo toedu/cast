@@ -7,6 +7,11 @@ footer {
     margin: 50px 0;
 }
 
+ul li {
+    padding: 0px;
+    margin: 0px;
+}
+
 .collapse .btn-live {
     margin-top: 8px;
 }
@@ -25,11 +30,34 @@ footer {
     margin-bottom: 5px;
 }
 
+.chatContent ul{
+    padding: 5px 3px;
+    margin: 0px;
+}
+
+.chatContent ul li{
+    list-style: none;
+}
+
+.chatContent .name{
+    margin-right: 2px;
+}
+
 .chatInput input {
     width: 205px;
     height: 34px;
     line-height: 34;
     float: left;
+    padding-left: 4px;
+}
+
+.chatInput :focus{
+    outline:none;
+}
+
+.chatInput input:focus{
+    border: 1px solid #929292;
+    outline:none;
 }
 
 .chatInput button {
