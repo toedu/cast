@@ -48,6 +48,12 @@ class HomeController
         View::process($view);
     }
 
+    public function cast()
+    {
+        $view = View::make('cast');
+        View::process($view);
+    }
+
     public function register()
     {
         switch ($_SERVER['REQUEST_METHOD']) {

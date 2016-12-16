@@ -56,61 +56,76 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
-<script src="http://192.168.1.31:3000/socket.io/socket.io.js"></script>
+<script src="http://192.168.33.20:3000/socket.io/socket.io.js"></script>
 <script>
     var userName = "<?php echo($userName); ?>";
-    var url = "http://192.168.1.31:3000";
-    var socket = io(url);
+    var roomId = "<?php echo($roomId); ?>";
+    var url = "http://192.168.33.20:3000/chat";
 
-    socket.on('connect', function () {
-        console.log('connect')
-        socket.emit('online',JSON.stringify({user:userName}));
-    });
+    if(userName){
+        var socket = io(url);
 
-    socket.on('disconnect',function(){
-        var msg = '<span style="color:#f00">disconnect from the server</span>';
-        addMsg(msg)
-    });
+        socket.on('connect', function () {
+            console.log('connected')
+            socket.emit('online',JSON.stringify({user:userName}));
+        });
 
-    socket.on('reconnect',function(){
-        var msg = '<span style="color:#23ff00">reconnect successful</span>';
-        addMsg(msg)
-    });
+        socket.on('disconnect',function(){
+            var msg = '<span style="color:#f00">disconnect from the server</span>';
+            addMsg(msg)
+        });
 
+        socket.on('reconnect',function(){
+            var msg = '<span style="color:#23ff00">reconnect successful</span>';
+            addMsg(msg)
+        });
 
-    socket.on('chat', function(msg, name){
-        console.log(msg);
-        addMsg(msg, name);
+        socket.on('join', function(user, list){
+            console.log('join', user, list);
+            var msg = '<span style="color:#3995ff">welcome '+ user +'!</span>';
+            addMsg(msg);
+        });
 
-    });
+        socket.on('leave', function(user, list){
+            console.log('leave', user, list);
+            var msg = '<span style="color:#3995ff">'+ user +' left!</span>';
+            addMsg(msg);
+        });
 
-    $('#input').keydown(function (event) {
-        if(event.which == 13){
+        socket.on('msg', function(name, message){
+            console.log('msg', name, message);
+            addMsg(message, name);
+        });
+
+        $('#input').keydown(function (event) {
+            if(event.which == 13){
+                send();
+            }
+        });
+
+        $('#send').click(function () {
             send();
+        });
+
+        function send() {
+            var txt = $('#input').val();
+            if(txt.length > 0){
+                socket.emit('msg', txt);
+                $('#input').val('');
+                addMsg(txt, userName);
+            }
         }
-    });
 
-    $('#send').click(function () {
-        send();
-    })
-
-    function send() {
-        var txt = $('#input').val();
-        if(txt.length > 0){
-            socket.emit('chat', txt);
-            $('#input').val('');
-            addMsg(txt, userName);
+        function addMsg(msg, name="") {
+            var nameHtml = "";
+            if(name.length > 0){
+                nameHtml = "<span class=\"name\" style=\"color:#5689ff\">"+name+":</span>";
+            }
+            var html = nameHtml+"<span class=\"msg\">"+msg+"</span>";
+            $('#messages').append("<li>"+html+"<li>");
         }
     }
 
-    function addMsg(msg, name="") {
-        var nameHtml = "";
-        if(name.length > 0){
-            nameHtml = "<span class=\"name\" style=\"color:#5689ff\">"+name+":</span>";
-        }
-        var html = nameHtml+"<span class=\"msg\">"+msg+"</span>";
-        $('#messages').append("<li>"+html+"<li>");
-    }
 </script>
 
 </body>
